@@ -48,6 +48,8 @@ class InitialDataLoader {
         List<User> sampleUserList = generateSampleUsers();
         List<Training> sampleTrainingList = generateTrainingData(sampleUserList);
 
+        userRepository.saveAll(sampleUserList);
+        trainingRepository.saveAll(sampleTrainingList);
 
         log.info("Finished loading initial data");
     }
@@ -157,7 +159,7 @@ class InitialDataLoader {
 
             trainingData.forEach(training -> trainingRepository.save(training));
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error("An error occurred while loading initial data", e);
         }
 
         return trainingData;
